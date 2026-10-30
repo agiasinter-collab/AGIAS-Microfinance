@@ -72,3 +72,11 @@ To connect a domain, navigate to Project > Settings > Domains and click Connect 
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
 # AGIAS-Microfinance
+
+## Configuration des mots de passe
+
+Ne publiez jamais votre fichier `.env` ni les mots de passe des comptes.
+
+- Les scripts locaux de création d’administrateur utilisent `ADMIN_USER_PASSWORD` dans `.env`.
+- La fonction Supabase `seed-demo-data` nécessite le secret `DEMO_USER_PASSWORD`, à configurer dans les secrets du projet Supabase avant son exécution.
+- Le script SQL `create-admin-user.sql` contient un placeholder : remplacez-le localement par un mot de passe fort et unique avant l’exécution, sans publier cette modification.

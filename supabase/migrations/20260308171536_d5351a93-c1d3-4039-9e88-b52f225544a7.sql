@@ -1,0 +1,1 @@
+ALTER TABLE public.beneficiaires ADD COLUMN IF NOT EXISTS ville TEXT DEFAULT 'Abidjan';

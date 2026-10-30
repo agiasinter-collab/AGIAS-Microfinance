@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer Utilisateur AGIAS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0d3d26 0%, #1a5a3a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #0d3d26;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #d94f2b, #ff6b35);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 24px;
+            margin: 0 auto 15px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #d94f2b;
+            box-shadow: 0 0 0 3px rgba(217, 79, 43, 0.1);
+        }
+        .form-group input[readonly] {
+            background: #f5f5f5;
+            cursor: not-allowed;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #d94f2b, #ff6b35);
+            color: white;
+        }
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(217, 79, 43, 0.3);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        .btn-secondary:hover {
+            background: #eeeeee;
+        }
+        .info-box {
+            background: #f0f7ff;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #0066cc;
+        }
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #856404;
+        }
+        .error-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #721c24;
+            display: none;
+        }
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: #155724;
+            display: none;
+        }
+        .spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #d94f2b;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .copy-link {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .copy-link button {
+            display: inline;
+            width: auto;
+            padding: 4px 10px;
+            font-size: 11px;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            margin-left: 5px;
+        }
+        .copy-link button:hover {
+            background: #eeeeee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">AM</div>
+            <h1>Créer Utilisateur Admin</h1>
+            <p>AGIAS Microfinance - Gestion d'utilisateurs</p>
+        </div>
+
+        <div class="error-box" id="errorBox"></div>
+        <div class="success-box" id="successBox"></div>
+
+        <div class="info-box">
+            ℹ️ Avant de créer l'utilisateur via cette interface, assurez-vous que vous êtes connecté à Supabase dans une autre onglet du navigateur.
+        </div>
+
+        <div class="warning-box">
+            ⚠️ Cette page nécessite une clé <strong>Service Role</strong> pour fonctionner. 
+            Si vous n'avez pas de clé, <a href="#sql-method" style="color: #ffc107; text-decoration: underline;">utilisez la méthode SQL</a>.
+        </div>
+
+        <form id="createUserForm">
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" value="agiasinter@gmail.com" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mot de passe *</label>
+                <input type="password" id="password" name="password" autocomplete="new-password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Nom *</label>
+                <input type="text" id="name" name="name" value="Admin AGIAS" required>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Rôle *</label>
+                <select id="role" name="role" required>
+                    <option value="admin" selected>Admin</option>
+                    <option value="superviseur">Superviseur</option>
+                    <option value="agent">Agent Terrain</option>
+                </select>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-primary" id="submitBtn">Créer l'utilisateur</button>
+                <button type="button" class="btn-secondary" onclick="location.reload()">Réinitialiser</button>
+            </div>
+        </form>
+
+        <div class="copy-link">
+            <small>
+                <strong id="sqlMethod">Ou utilisez la méthode SQL:</strong>
+                <button onclick="copySQLScript()">Copier le script</button>
+            </small>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://uimftmzvyirfjfacdain.supabase.co';
+        const ANON_KEY = 'sb_publishable_epCmw6X0UYll1x4xE9eqjg_BUOhBGxj';
+        const SERVICE_ROLE_KEY = 'YOUR_SERVICE_ROLE_KEY_HERE'; // À remplacer
+
+        const form = document.getElementById('createUserForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const errorBox = document.getElementById('errorBox');
+        const successBox = document.getElementById('successBox');
+
+        function showError(message) {
+            errorBox.textContent = '❌ ' + message;
+            errorBox.style.display = 'block';
+            successBox.style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            successBox.textContent = '✅ ' + message;
+            successBox.style.display = 'block';
+            errorBox.style.display = 'none';
+        }
+
+        function copySQLScript() {
+            const password = document.getElementById('password').value;
+            if (!password) {
+                showError('Saisissez un mot de passe avant de copier le script SQL.');
+                return;
+            }
+            const sqlPassword = password.replaceAll("'", "''");
+            const sqlScript = `DO $$
+DECLARE
+  v_user uuid;
+BEGIN
+  DELETE FROM auth.users WHERE email = 'agiasinter@gmail.com';
+  INSERT INTO auth.users (
+    id, aud, role, email, encrypted_password, email_confirmed_at,
+    raw_app_meta_data, raw_user_meta_data, created_at, updated_at,
+    is_sso_user, is_anonymous
+  ) VALUES (
+    gen_random_uuid(), 'authenticated', 'authenticated', 'agiasinter@gmail.com',
+    crypt('${sqlPassword}', gen_salt('bf', 10)), now(),
+    '{"provider":"email","providers":["email"]}'::jsonb,
+    '{"email_verified":true,"name":"Admin AGIAS"}'::jsonb,
+    now(), now(), false, false
+  ) RETURNING id INTO v_user;
+  INSERT INTO public.profiles (id, name, initials, color, email, active, sub, photo_url)
+  VALUES (v_user, 'Admin AGIAS', 'AA', '#0d3d26', 'agiasinter@gmail.com', true, '', null);
+  INSERT INTO public.user_roles (user_id, role) VALUES (v_user, 'admin');
+  INSERT INTO auth.identities (id, provider, provider_id, user_id, identity_data, created_at, updated_at)
+  VALUES (gen_random_uuid(), 'email', 'agiasinter@gmail.com', v_user,
+    jsonb_build_object('email', 'agiasinter@gmail.com'), now(), now());
+  RAISE NOTICE 'Utilisateur créé avec succès';
+END$$;`;
+
+            navigator.clipboard.writeText(sqlScript).then(() => {
+                showSuccess('Script SQL copié dans le presse-papiers!');
+            }).catch(() => {
+                showError('Impossible de copier le script');
+            });
+        }
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (SERVICE_ROLE_KEY === 'YOUR_SERVICE_ROLE_KEY_HERE') {
+                showError('Service Role Key non configurée. Utilisez la méthode SQL ou configurez la clé dans le code.');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span>Création en cours...';
+
+            try {
+                const response = await fetch(`${API_URL}/rest/v1/auth/admin/users`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${SERVICE_ROLE_KEY}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: 'agiasinter@gmail.com',
+                        password: document.getElementById('password').value,
+                        email_confirm: true,
+                        user_metadata: {
+                            name: document.getElementById('name').value,
+                        },
+                    }),
+                });
+
+                if (response.ok) {
+                    showSuccess('Utilisateur créé avec succès! Vous pouvez maintenant vous connecter.');
+                    setTimeout(() => {
+                        window.location.href = 'http://localhost:8080/';
+                    }, 2000);
+                } else {
+                    const data = await response.json();
+                    showError(data.message || 'Erreur lors de la création');
+                }
+            } catch (error) {
+                showError(error.message);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Créer l\'utilisateur';
+            }
+        });
+    </script>
+</body>
+</html>
